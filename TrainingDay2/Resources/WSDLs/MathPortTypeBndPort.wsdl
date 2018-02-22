@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WL5G3N0:definitions name="ws_Math" targetNamespace="http://esb.quadras.co.id/Math" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://esb.quadras.co.id/Math/inputMath" xmlns:WL5G3N2="http://esb.quadras.co.id/Math/outputMath" xmlns:WL5G3N3="http://esb.quadras.co.id/Math" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/">
+  <WL5G3N0:types>
+    <xsd:schema id="UID-88010000-05F870552E0100-0A172175-01" targetNamespace="http://esb.quadras.co.id/Math/inputMath" xmlns:inputMath="http://esb.quadras.co.id/Math/inputMath" xmlns:outputMath="http://esb.quadras.co.id/Math/outputMath" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://esb.quadras.co.id/Math/inputMath" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="inputMath" type="tns:inputMath"/>
+      <xsd:complexType name="inputMath">
+        <xsd:sequence>
+          <xsd:element name="FirstNumber" type="xsd:int"/>
+          <xsd:element name="SecondNumber" type="xsd:int"/>
+          <xsd:element name="Operation" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema id="UID-11020000-9AB130B72E0100-0A172175-02" targetNamespace="http://esb.quadras.co.id/Math/outputMath" xmlns:inputMath="http://esb.quadras.co.id/Math/inputMath" xmlns:outputMath="http://esb.quadras.co.id/Math/outputMath" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://esb.quadras.co.id/Math/outputMath" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="outputMath" type="tns:outputMath"/>
+      <xsd:complexType name="outputMath">
+        <xsd:sequence>
+          <xsd:element name="ErrorSchema" type="tns:ErrorSchema"/>
+          <xsd:element name="OutputSchema" type="tns:OutputSchema"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="OutputSchema">
+        <xsd:sequence>
+          <xsd:element name="Result" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorSchema">
+        <xsd:sequence>
+          <xsd:element name="ErrorCode" type="xsd:string"/>
+          <xsd:element name="ErrorMessage" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </WL5G3N0:types>
+  <WL5G3N0:message name="MessageInput">
+    <WL5G3N0:part name="Input" type="WL5G3N1:inputMath"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="MessageOutput">
+    <WL5G3N0:part name="Output" type="WL5G3N2:outputMath"/>
+  </WL5G3N0:message>
+  <WL5G3N0:portType name="MathPortType">
+    <WL5G3N0:operation name="DoOperation">
+      <WL5G3N0:input message="WL5G3N3:MessageInput" name="InputMessage"/>
+      <WL5G3N0:output message="WL5G3N3:MessageOutput" name="OutputMessage"/>
+    </WL5G3N0:operation>
+  </WL5G3N0:portType>
+  <WL5G3N0:binding name="MathPortTypeBnd" type="WL5G3N3:MathPortType">
+    <WL5G3N4:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N0:operation name="DoOperation">
+      <WL5G3N4:operation soapAction="http://esb.quadras.co.id/Math/MathPortType/DoOperation" style="rpc"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body namespace="http://esb.quadras.co.id/Math" parts="Input" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body namespace="http://esb.quadras.co.id/Math" parts="Output" use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+  </WL5G3N0:binding>
+  <WL5G3N0:service name="ws_Math_Service">
+    <WL5G3N0:port binding="WL5G3N3:MathPortTypeBnd" name="MathPortTypeBndPort">
+      <WL5G3N4:address location="http://10.20.200.140:9403/Math/MathPortTypeBndPort"/>
+    </WL5G3N0:port>
+  </WL5G3N0:service>
+</WL5G3N0:definitions>

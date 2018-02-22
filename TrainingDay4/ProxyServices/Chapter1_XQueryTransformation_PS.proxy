@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config">
+  <ser:coreEntry isProxy="true" isEnabled="true">
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="XML">
+        <con2:schema ref="TrainingDay4/Resources/XSDs/Person" element="Person" xmlns:con2="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:request>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/TrainingDay4/ProxyServices/Chapter1_XQueryTransformation_PS</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router>
+    <con1:pipeline type="request" name="PipelinePairNode1_request">
+      <con1:stage name="PrintInputToConsole">
+        <con4:context xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con4="http://www.bea.com/wli/sb/pipeline/config" xmlns:jms="http://www.bea.com/wli/sb/transports/jms"/>
+        <con4:actions xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con4="http://www.bea.com/wli/sb/pipeline/config" xmlns:jms="http://www.bea.com/wli/sb/transports/jms">
+          <con2:javaCallout varName="">
+            <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7a3a</con1:id>
+            <con2:archive ref="TrainingDay4/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Input Body : ',fn:normalize-space(fn-bea:serialize($body)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con2:assign varName="employee">
+            <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7a21</con1:id>
+            <con2:expr>
+              <con1:xqueryTransform>
+                <con1:resource ref="TrainingDay4/Resources/XQuery/PersonToEmployee"/>
+                <con1:param name="person1">
+                  <con1:path>$body/Person</con1:path>
+                </con1:param>
+              </con1:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+          <con2:javaCallout varName="">
+            <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7a34</con1:id>
+            <con2:archive ref="TrainingDay4/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Employee : ',fn:normalize-space(fn-bea:serialize($employee)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+        </con4:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response"/>
+    <con1:flow>
+      <con1:pipeline-node name="PipelinePairNode1">
+        <con1:request>PipelinePairNode1_request</con1:request>
+        <con1:response>PipelinePairNode1_response</con1:response>
+      </con1:pipeline-node>
+    </con1:flow>
+  </ser:router>
+</xml-fragment>

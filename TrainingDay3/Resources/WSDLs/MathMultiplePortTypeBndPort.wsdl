@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WL5G3N0:definitions name="MathMultiple" targetNamespace="http://esb.quadras.co.id/MathMultiple/" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://esb.quadras.co.id/MathMultiple/input_MathMultiple/" xmlns:WL5G3N2="http://esb.quadras.co.id/MathMultiple/outputMathMultiple/" xmlns:WL5G3N3="http://esb.quadras.co.id/MathMultiple/" xmlns:WL5G3N4="http://schemas.xmlsoap.org/wsdl/soap/">
+  <WL5G3N0:types>
+    <xsd:schema targetNamespace="http://esb.quadras.co.id/MathMultiple/input_MathMultiple/" xmlns:inMsg="http://esb.quadras.co.id/MathMultiple/input_MathMultiple/" xmlns:outMsg="http://esb.quadras.co.id/MathMultiple/outputMathMultiple/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://esb.quadras.co.id/MathMultiple/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="inputMathMultiple" type="inMsg:inputMathMultipleComplexType"/>
+	  <xsd:complexType name="inputMathMultipleType">
+        <xsd:sequence>
+          <xsd:element name="FirstNumber" type="xsd:int"/>
+          <xsd:element name="SecondNumber" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+	  <xsd:complexType name="inputMathMultipleComplexType">
+        <xsd:sequence>
+          <xsd:element name="Input" type="inMsg:inputMathMultipleType"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema targetNamespace="http://esb.quadras.co.id/MathMultiple/outputMathMultiple/" xmlns:inMsg="http://esb.quadras.co.id/MathMultiple/input_MathMultiple/" xmlns:outMsg="http://esb.quadras.co.id/MathMultiple/outputMathMultiple/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://esb.quadras.co.id/MathMultiple/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="outputMathMultiple" type="outMsg:outputMathMultipleComplexType"/>
+      <xsd:complexType name="outputMathMultipleType">
+        <xsd:sequence>
+		  <xsd:element name="ErrorSchema" type="outMsg:ErrorSchema"/>
+          <xsd:element name="OutputSchema" type="outMsg:OutputSchema"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ErrorSchema">
+        <xsd:sequence>
+          <xsd:element name="ErrorCode" type="xsd:string"/>
+          <xsd:element name="ErrorMessage" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+	     <xsd:complexType name="OutputSchema">
+        <xsd:sequence>
+  	  <xsd:element name="Result" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="outputMathMultipleComplexType">
+        <xsd:sequence>
+          <xsd:element name="Output" type="outMsg:outputMathMultipleType"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </WL5G3N0:types>
+  <WL5G3N0:message name="MessageInputAddOperation">
+    <WL5G3N0:part element="WL5G3N1:inputMathMultiple" name="Input"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="MessageOutputAddOperation">
+    <WL5G3N0:part element="WL5G3N2:outputMathMultiple" name="Output"/>
+  </WL5G3N0:message>
+   <WL5G3N0:message name="MessageInputSubstractOperation">
+    <WL5G3N0:part element="WL5G3N1:inputMathMultiple" name="Input"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="MessageOutputSubstractOperation">
+    <WL5G3N0:part element="WL5G3N2:outputMathMultiple" name="Output"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="MessageInputMultiplyOperation">
+    <WL5G3N0:part element="WL5G3N1:inputMathMultiple" name="Input"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="MessageOutputMultiplyOperation">
+    <WL5G3N0:part element="WL5G3N2:outputMathMultiple" name="Output"/>
+  </WL5G3N0:message>
+   <WL5G3N0:message name="MessageInputDivideOperation">
+    <WL5G3N0:part element="WL5G3N1:inputMathMultiple" name="Input"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="MessageOutputDivideOperation">
+    <WL5G3N0:part element="WL5G3N2:outputMathMultiple" name="Output"/>
+  </WL5G3N0:message>
+  <WL5G3N0:portType name="MathMultiplePortType">
+    <WL5G3N0:operation name="Add">
+      <WL5G3N0:input message="WL5G3N3:MessageInputAddOperation" name="inputAddOperation"/>
+      <WL5G3N0:output message="WL5G3N3:MessageOutputAddOperation" name="outputAddOperation"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="Substract">
+      <WL5G3N0:input message="WL5G3N3:MessageInputSubstractOperation" name="inputSubstractOperation"/>
+      <WL5G3N0:output message="WL5G3N3:MessageOutputSubstractOperation" name="outputSubstractOperation"/>
+    </WL5G3N0:operation>
+	<WL5G3N0:operation name="Multiply">
+      <WL5G3N0:input message="WL5G3N3:MessageInputMultiplyOperation" name="inputMultiplyOperation"/>
+      <WL5G3N0:output message="WL5G3N3:MessageOutputMultiplyOperation" name="outputMultiplyOperation"/>
+    </WL5G3N0:operation>
+    <WL5G3N0:operation name="Divide">
+      <WL5G3N0:input message="WL5G3N3:MessageInputDivideOperation" name="inputDivideOperation"/>
+      <WL5G3N0:output message="WL5G3N3:MessageOutputDivideOperation" name="outputDivideOperation"/>
+    </WL5G3N0:operation>
+  </WL5G3N0:portType>
+  <WL5G3N0:binding name="MathMultiplePortTypeBnd" type="WL5G3N3:MathMultiplePortType">
+    <WL5G3N4:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N0:operation name="Add">
+      <WL5G3N4:operation soapAction="http://esb.quadras.co.id/MathMultiple/MathMultiplePortType/Add" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="Input" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="Output" use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+	<WL5G3N0:operation name="Substract">
+      <WL5G3N4:operation soapAction="http://esb.quadras.co.id/MathMultiple/MathMultiplePortType/Substract" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="Input" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="Output" use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+	<WL5G3N0:operation name="Multiply">
+      <WL5G3N4:operation soapAction="http://esb.quadras.co.id/MathMultiple/MathMultiplePortType/Multiply" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="Input" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="Output" use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+	<WL5G3N0:operation name="Divide">
+      <WL5G3N4:operation soapAction="http://esb.quadras.co.id/MathMultiple/MathMultiplePortType/Divide" style="document"/>
+      <WL5G3N0:input>
+        <WL5G3N4:body parts="Input" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N4:body parts="Output" use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+  </WL5G3N0:binding>
+  <WL5G3N0:service name="MathMultiple_Service">
+    <WL5G3N0:port binding="WL5G3N3:MathMultiplePortTypeBnd" name="MathMultiplePortTypeBndPort">
+      <WL5G3N4:address location="http://10.20.200.140:9403/MathMultiple/MathMultiplePortTypeBndPort"/>
+    </WL5G3N0:port>
+  </WL5G3N0:service>
+</WL5G3N0:definitions>

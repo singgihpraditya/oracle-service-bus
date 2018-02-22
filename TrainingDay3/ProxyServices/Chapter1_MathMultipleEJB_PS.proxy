@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+  <ser:coreEntry isProxy="true" isEnabled="true">
+    <ser:binding type="SOAP" isSoap12="false" xsi:type="con3:SoapBindingType" xmlns:con3="http://www.bea.com/wli/sb/services/bindings/config">
+      <con3:wsdl ref="TrainingDay3/Resources/WSDLs/MathMultiplePortTypeBndPort"/>
+      <con3:binding>
+        <con3:name>MathMultiplePortTypeBnd</con3:name>
+        <con3:namespace>http://esb.quadras.co.id/MathMultiple/</con3:namespace>
+      </con3:binding>
+      <con3:selector type="SOAP action"/>
+      <con3:WSI-compliant>false</con3:WSI-compliant>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/TrainingDay3/ProxyServices/Chapter1_MathMultipleEJB_PS</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-1083879019689652492--307f7d14.161b677498d.-7a13">
+    <con:pipeline type="request" name="PipelinePairNode1_request">
+      <con:stage name="PrintInputToConsole">
+        <con:context>
+          <con1:varNsDecl namespace="http://esb.quadras.co.id/MathMultiple/input_MathMultiple/" prefix="inp"/>
+        </con:context>
+        <con:actions>
+          <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+            <con1:id>_ActionId-4523940642413307627-1f76d04c.161b8b36db4.-7f1f</con1:id>
+            <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Input Body : ',fn:normalize-space(fn-bea:serialize($body)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con1:assign varName="firstNumber" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-79a1</con3:id>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/inp:inputMathMultiple/Input/FirstNumber/text()</con3:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:assign varName="secondNumber" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-79a0</con3:id>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/inp:inputMathMultiple/Input/SecondNumber/text()</con3:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con2:javaCallout varName="">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7980</con1:id>
+            <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('First Number : ',$firstNumber)</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con2:javaCallout varName="">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-797f</con1:id>
+            <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Second Number : ',$secondNumber)</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+        </con:actions>
+      </con:stage>
+      <con:stage name="ValidateInput">
+        <con:context/>
+        <con:actions>
+          <con2:assign varName="missingMandatoryField">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-760b</con1:id>
+            <con2:expr>
+              <con1:xqueryText>if(fn:string-length(fn-bea:trim($firstNumber))=0) then
+	 'firstNumber'
+else if(fn:string-length(fn-bea:trim($secondNumber))=0) then
+	 'secondNumber'
+else
+	''</con1:xqueryText>
+            </con2:expr>
+          </con2:assign>
+          <con2:javaCallout varName="">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7584</con1:id>
+            <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Missing Mandatory Field : ',$missingMandatoryField)</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con2:ifThenElse>
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-75f7</con1:id>
+            <con2:case>
+              <con2:condition>
+                <con1:xqueryText>fn:string-length($missingMandatoryField)>0</con1:xqueryText>
+              </con2:condition>
+              <con2:actions>
+                <con2:Error>
+                  <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-75d8</con1:id>
+                  <con2:errCode>999</con2:errCode>
+                  <con2:message>Missing mandatory field</con2:message>
+                </con2:Error>
+              </con2:actions>
+            </con2:case>
+            <con2:default/>
+          </con2:ifThenElse>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response">
+      <con:stage name="ConstructOutput">
+        <con:context>
+          <con1:userNsDecl namespace="http://esb.bca.com/MathMultiple/outputMathMultiple/" prefix="out"/>
+        </con:context>
+        <con:actions>
+          <con2:javaCallout varName="">
+            <con1:id>_ActionId-4523940642413307627-1f76d04c.161b8b36db4.-7efb</con1:id>
+            <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Result : ',$result)</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con2:assign varName="newBody">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7909</con1:id>
+            <con2:expr>
+              <con1:xqueryText><![CDATA[<out:outputMathMultiple>
+	<Output>
+    	<ErrorSchema>
+        	<ErrorCode>000</ErrorCode>
+        	<ErrorMessage>Success</ErrorMessage>
+    	</ErrorSchema>
+    	<OutputSchema>
+    		<Result>{$result}</Result>
+    	</OutputSchema>
+   	</Output>
+</out:outputMathMultiple>]]></con1:xqueryText>
+            </con2:expr>
+          </con2:assign>
+          <con2:replace varName="body" contents-only="true">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7908</con1:id>
+            <con2:location>
+              <con1:xpathText>.</con1:xpathText>
+            </con2:location>
+            <con2:expr>
+              <con1:xqueryText>$newBody</con1:xqueryText>
+            </con2:expr>
+          </con2:replace>
+          <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+            <con1:id>_ActionId-4523940642413307627-1f76d04c.161b8b36db4.-7ef7</con1:id>
+            <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Output Body : ',fn:normalize-space(fn-bea:serialize($body)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con1:reply>
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7907</con1:id>
+          </con1:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-1083879019689652492--307f7d14.161b677498d.-7a13">
+      <con:stage name="ConstructOutputError">
+        <con:context>
+          <con1:userNsDecl namespace="http://esb.bca.com/MathMultiple/outputMathMultiple/" prefix="out"/>
+        </con:context>
+        <con:actions>
+          <con2:assign varName="newBody">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7626</con1:id>
+            <con2:expr>
+              <con1:xqueryText><![CDATA[<out:outputMathMultiple>
+	<Output>
+    	<ErrorSchema>
+        	<ErrorCode>000</ErrorCode>
+        	<ErrorMessage>Success</ErrorMessage>
+    	</ErrorSchema>
+    	<OutputSchema>
+    		<Result>{$result}</Result>
+    	</OutputSchema>
+   	</Output>
+</out:outputMathMultiple>]]></con1:xqueryText>
+            </con2:expr>
+          </con2:assign>
+          <con2:replace varName="body" contents-only="true">
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7625</con1:id>
+            <con2:location>
+              <con1:xpathText>.</con1:xpathText>
+            </con2:location>
+            <con2:expr>
+              <con1:xqueryText>$newBody</con1:xqueryText>
+            </con2:expr>
+          </con2:replace>
+          <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+            <con1:id>_ActionId-4523940642413307627-1f76d04c.161b8b36db4.-7f01</con1:id>
+            <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Output Body : ',fn:normalize-space(fn-bea:serialize($body)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con1:reply>
+            <con1:id>_ActionId-1083879019689652492--307f7d14.161b677498d.-7624</con1:id>
+          </con1:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="request" name="PipelinePairNodeAdd_request">
+      <con:stage name="CallAddOperationEJBStage">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.openuri.org/" prefix="m"/>
+        </con:context>
+        <con:actions>
+          <con2:wsCallout>
+            <con1:id>_ActionId-2540002494184143161-4af99b6c.161bd11d8d1.-7feb</con1:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="TrainingDay3/BusinessServices/CallMathEJB_BS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>add</con2:operation>
+            <con2:request>
+              <con2:body>$inputAddOperation</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>outputAddOperation</con2:body>
+            </con2:response>
+            <con2:requestTransform>
+              <con2:assign varName="inputAddOperation">
+                <con1:id>_ActionId-2540002494184143161-4af99b6c.161bd11d8d1.-7fc6</con1:id>
+                <con2:expr>
+                  <con1:xqueryText><![CDATA[<open:add xmlns:open="http://www.openuri.org/">
+    <open:firstNumber>{$firstNumber}</open:firstNumber>
+    <open:secondNumber>{$secondNumber}</open:secondNumber>
+</open:add>]]></con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-2540002494184143161-4af99b6c.161bd11d8d1.-7fa8</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Input Add Operation : ',fn:normalize-space(fn-bea:serialize($inputAddOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+            </con2:requestTransform>
+            <con2:responseTransform>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-2540002494184143161-4af99b6c.161bd11d8d1.-7f6f</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Output Add Operation : ',fn:normalize-space(fn-bea:serialize($outputAddOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+              <con2:assign varName="result">
+                <con1:id>_ActionId-2540002494184143161-4af99b6c.161bd11d8d1.-7f4e</con1:id>
+                <con2:expr>
+                  <con1:xqueryText>$outputAddOperation//m:result/text()</con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+            </con2:responseTransform>
+          </con2:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNodeAdd_response"/>
+    <con:pipeline type="request" name="PipelinePairNodeSubstract_request">
+      <con:stage name="SubstractStage">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.openuri.org/" prefix="m"/>
+        </con:context>
+        <con:actions>
+          <con2:wsCallout>
+            <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f6b</con1:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="TrainingDay3/BusinessServices/CallMathEJB_BS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>substract</con2:operation>
+            <con2:request>
+              <con2:body>$inputSubstractOperation</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>outputSubstractOperation</con2:body>
+            </con2:response>
+            <con2:requestTransform>
+              <con2:assign varName="inputSubstractOperation">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f6f</con1:id>
+                <con2:expr>
+                  <con1:xqueryText><![CDATA[<open:substract xmlns:open="http://www.openuri.org/">
+    <open:firstNumber>{$firstNumber}</open:firstNumber>
+    <open:secondNumber>{$secondNumber}</open:secondNumber>
+</open:substract>]]></con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f6e</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Input Substract Operation : ',fn:normalize-space(fn-bea:serialize($inputSubstractOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+            </con2:requestTransform>
+            <con2:responseTransform>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f6d</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Output Substract Operation : ',fn:normalize-space(fn-bea:serialize($outputSubstractOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+              <con2:assign varName="result">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f6c</con1:id>
+                <con2:expr>
+                  <con1:xqueryText>$outputSubstractOperation//m:result/text()</con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+            </con2:responseTransform>
+          </con2:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNodeSubstract_response"/>
+    <con:pipeline type="request" name="PipelinePairNodeMultiply_request">
+      <con:stage name="MultiplyStage">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.openuri.org/" prefix="m"/>
+        </con:context>
+        <con:actions>
+          <con2:wsCallout>
+            <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f0b</con1:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="TrainingDay3/BusinessServices/CallMathEJB_BS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>multiply</con2:operation>
+            <con2:request>
+              <con2:body>$inputMultiplyOperation</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>outputMultiplyOperation</con2:body>
+            </con2:response>
+            <con2:requestTransform>
+              <con2:assign varName="inputMultiplyOperation">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f0f</con1:id>
+                <con2:expr>
+                  <con1:xqueryText><![CDATA[<open:multiply xmlns:open="http://www.openuri.org/">
+    <open:firstNumber>{$firstNumber}</open:firstNumber>
+    <open:secondNumber>{$secondNumber}</open:secondNumber>
+</open:multiply>]]></con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f0e</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Input Multiply Operation : ',fn:normalize-space(fn-bea:serialize($inputMultiplyOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+            </con2:requestTransform>
+            <con2:responseTransform>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f0d</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Output Multiply Operation : ',fn:normalize-space(fn-bea:serialize($outputMultiplyOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+              <con2:assign varName="result">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7f0c</con1:id>
+                <con2:expr>
+                  <con1:xqueryText>$outputMultiplyOperation//m:result/text()</con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+            </con2:responseTransform>
+          </con2:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNodeMultiply_response"/>
+    <con:pipeline type="request" name="PipelinePairNodeDivide_request">
+      <con:stage name="DivideStage">
+        <con:context>
+          <con1:userNsDecl namespace="http://www.openuri.org/" prefix="m"/>
+        </con:context>
+        <con:actions>
+          <con2:wsCallout>
+            <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7eab</con1:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="TrainingDay3/BusinessServices/CallMathEJB_BS" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>divide</con2:operation>
+            <con2:request>
+              <con2:body>$inputDivideOperation</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>outputDivideOperation</con2:body>
+            </con2:response>
+            <con2:requestTransform>
+              <con2:assign varName="inputDivideOperation">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7eaf</con1:id>
+                <con2:expr>
+                  <con1:xqueryText><![CDATA[<open:divide xmlns:open="http://www.openuri.org/">
+    <open:firstNumber>{$firstNumber}</open:firstNumber>
+    <open:secondNumber>{$secondNumber}</open:secondNumber>
+</open:divide>]]></con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7eae</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Input Divide Operation : ',fn:normalize-space(fn-bea:serialize($inputDivideOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+            </con2:requestTransform>
+            <con2:responseTransform>
+              <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7ead</con1:id>
+                <con2:archive ref="TrainingDay3/Resources/JARs/SimpleLogging"/>
+                <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+                <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+                <con2:expr>
+                  <con1:xqueryText>'DEBUG'</con1:xqueryText>
+                </con2:expr>
+                <con2:expr>
+                  <con1:xqueryText>concat('Output Divide Operation : ',fn:normalize-space(fn-bea:serialize($outputDivideOperation)))</con1:xqueryText>
+                </con2:expr>
+              </con2:javaCallout>
+              <con2:assign varName="result">
+                <con1:id>_ActionId-7687793688865467531-2b13444e.161bdd2f1d5.-7eac</con1:id>
+                <con2:expr>
+                  <con1:xqueryText>$outputDivideOperation//m:result/text()</con1:xqueryText>
+                </con2:expr>
+              </con2:assign>
+            </con2:responseTransform>
+          </con2:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNodeDivide_response"/>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+      <con:branch-node type="operation" name="BranchNode1">
+        <con:context/>
+        <con:branch-table>
+          <con:branch name="Add">
+            <con:operator>equals</con:operator>
+            <con:value/>
+            <con:flow>
+              <con:pipeline-node name="PipelinePairNodeAdd">
+                <con:request>PipelinePairNodeAdd_request</con:request>
+                <con:response>PipelinePairNodeAdd_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:branch>
+          <con:branch name="Substract">
+            <con:operator>equals</con:operator>
+            <con:value/>
+            <con:flow>
+              <con:pipeline-node name="PipelinePairNodeSubstract">
+                <con:request>PipelinePairNodeSubstract_request</con:request>
+                <con:response>PipelinePairNodeSubstract_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:branch>
+          <con:branch name="Multiply">
+            <con:operator>equals</con:operator>
+            <con:value/>
+            <con:flow>
+              <con:pipeline-node name="PipelinePairNodeMultiply">
+                <con:request>PipelinePairNodeMultiply_request</con:request>
+                <con:response>PipelinePairNodeMultiply_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:branch>
+          <con:branch name="Divide">
+            <con:operator>equals</con:operator>
+            <con:value/>
+            <con:flow>
+              <con:pipeline-node name="PipelinePairNodeDivide">
+                <con:request>PipelinePairNodeDivide_request</con:request>
+                <con:response>PipelinePairNodeDivide_response</con:response>
+              </con:pipeline-node>
+            </con:flow>
+          </con:branch>
+          <con:default-branch>
+            <con:flow/>
+          </con:default-branch>
+        </con:branch-table>
+      </con:branch-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

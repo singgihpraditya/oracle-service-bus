@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/pipeline/config">
+  <ser:coreEntry isProxy="true" isEnabled="true">
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="XML">
+        <con3:schema ref="TrainingDay1/Resources/XSDs/InputLooping" element="InputLooping" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:request>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/TrainingDay1/ProxyServices/Chapter2_XPathManipulation2_PS</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router>
+    <con:pipeline type="request" name="PipelinePairNode1_request" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:stage name="PrintInputToConsole">
+        <con:context/>
+        <con:actions>
+          <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config">
+            <con1:id>_ActionId-4523940642413307627-1f76d04c.161b8b36db4.-7f8f</con1:id>
+            <con2:archive ref="TrainingDay1/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Input Body : ',fn:normalize-space(fn-bea:serialize($body)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+          <con1:assign varName="rowSize" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7d1c</con2:id>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">fn:count($body/InputLooping/Row)</con3:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:javaCallout varName="" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7c7b</con2:id>
+            <con1:archive ref="TrainingDay1/Resources/JARs/SimpleLogging"/>
+            <con1:className>id.co.quadras.training.WriteToConsole</con1:className>
+            <con1:method>public static void println(java.lang.String, java.lang.String)</con1:method>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'DEBUG'</con2:xqueryText>
+            </con1:expr>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">concat('Row size : ',$rowSize)</con3:xqueryText>
+            </con1:expr>
+          </con1:javaCallout>
+        </con:actions>
+      </con:stage>
+      <con:stage name="PrintXPathSelection">
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="selectedAddressFromName" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7bf1</con3:id>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/InputLooping/Row[name='Singgih']/address/text()</con3:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:javaCallout varName="" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7bf4</con3:id>
+            <con1:archive ref="TrainingDay1/Resources/JARs/SimpleLogging"/>
+            <con1:className>id.co.quadras.training.WriteToConsole</con1:className>
+            <con1:method>public static void println(java.lang.String, java.lang.String)</con1:method>
+            <con1:expr>
+              <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'DEBUG'</con2:xqueryText>
+            </con1:expr>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">concat('Selected Address : ',$selectedAddressFromName)</con3:xqueryText>
+            </con1:expr>
+          </con1:javaCallout>
+        </con:actions>
+      </con:stage>
+      <con:stage name="DoLooping" errorHandler="_onErrorHandler-1083879019689652492--307f7d14.161b677498d.-7ba9">
+        <con:context/>
+        <con:actions>
+          <con1:foreach xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
+            <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7c6c</con2:id>
+            <con1:variable>body</con1:variable>
+            <con1:expression>
+              <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">//InputLoop/Row</con3:xpathText>
+            </con1:expression>
+            <con1:value-variable>row</con1:value-variable>
+            <con1:index-variable>index</con1:index-variable>
+            <con1:total-variable>count</con1:total-variable>
+            <con1:actions>
+              <con1:ifThenElse>
+                <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7bdf</con3:id>
+                <con1:case>
+                  <con1:condition>
+                    <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$count&lt;=5</con3:xqueryText>
+                  </con1:condition>
+                  <con1:actions>
+                    <con1:assign varName="name">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7bdd</con3:id>
+                      <con1:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$row/Name/text()</con3:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="address">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7bdb</con3:id>
+                      <con1:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$row/Address/text()</con3:xqueryText>
+                      </con1:expr>
+                    </con1:assign>
+                    <con1:javaCallout varName="">
+                      <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7bd9</con3:id>
+                      <con1:archive ref="TrainingDay1/Resources/JARs/SimpleLogging"/>
+                      <con1:className>id.co.quadras.training.WriteToConsole</con1:className>
+                      <con1:method>public static void println(java.lang.String, java.lang.String)</con1:method>
+                      <con1:expr>
+                        <con2:xqueryText xmlns:con2="http://www.bea.com/wli/sb/stages/config">'DEBUG'</con2:xqueryText>
+                      </con1:expr>
+                      <con1:expr>
+                        <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">concat('Index : ',$index,', name : ',$name,', address : ',$address)</con3:xqueryText>
+                      </con1:expr>
+                    </con1:javaCallout>
+                  </con1:actions>
+                </con1:case>
+                <con1:default>
+                  <con1:Error>
+                    <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7baa</con3:id>
+                    <con1:errCode>999</con1:errCode>
+                    <con1:message>Max index reach</con1:message>
+                  </con1:Error>
+                </con1:default>
+              </con1:ifThenElse>
+            </con1:actions>
+          </con1:foreach>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
+    <con2:pipeline type="error" name="_onErrorHandler-1083879019689652492--307f7d14.161b677498d.-7ba9">
+      <con2:stage name="stage1">
+        <con2:context/>
+        <con2:actions>
+          <con1:javaCallout varName="" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+            <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7b70</con3:id>
+            <con1:archive ref="TrainingDay1/Resources/JARs/SimpleLogging"/>
+            <con1:className>id.co.quadras.training.WriteToConsole</con1:className>
+            <con1:method>public static void println(java.lang.String, java.lang.String)</con1:method>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">'ERROR'</con3:xqueryText>
+            </con1:expr>
+            <con1:expr>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">concat('Error code : ',$fault/ctx:errorCode,', reason :',$fault/ctx:reason)</con3:xqueryText>
+            </con1:expr>
+          </con1:javaCallout>
+        </con2:actions>
+      </con2:stage>
+    </con2:pipeline>
+    <con:flow xmlns:con="http://www.bea.com/wli/sb/pipeline/config">
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>
