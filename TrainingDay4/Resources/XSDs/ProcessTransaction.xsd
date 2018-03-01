@@ -1,0 +1,23 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="TransactionData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Transaction" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="FromAccountNo"/>
+              <xs:element type="xs:string" name="FromAccountName"/>
+              <xs:element type="xs:string" name="ToAccountNo"/>
+              <xs:element type="xs:string" name="ToAccountName"/>
+              <xs:element type="xs:string" name="TransactionDate"/>
+              <xs:element type="xs:string" name="TransactionCurrencyCode"/>
+              <xs:element type="xs:string" name="TransactionAmount"/>
+              <xs:element type="xs:string" name="ReferenceNumber"/>
+              <xs:element type="xs:string" name="Remark"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

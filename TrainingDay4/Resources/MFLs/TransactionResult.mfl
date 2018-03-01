@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<!DOCTYPE MessageFormat SYSTEM 'mfl.dtd'>
+<!--   Enter description of the message format here.   -->
+<MessageFormat name='TransactionResult' version='2.02'>
+    <StructFormat name='Transaction' delimOptional='y' repeat='*'>
+        <FieldFormat name='TransactionDate' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='ReferenceNumber' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='FromAccountNo' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='FromAccountName' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='ToAccountNo' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='ToAccountName' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='TransactionCurrencyCode' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='TransactionAmount' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='Remark' type='String' delimRef='' delim='|' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='Status' type='String' delimRef='' delim='\n' delimOptional='n' codepage='windows-1252'/>
+    </StructFormat>
+</MessageFormat>

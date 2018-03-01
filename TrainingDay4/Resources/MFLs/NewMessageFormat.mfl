@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='windows-1252'?>
-<!DOCTYPE MessageFormat SYSTEM 'mfl.dtd'>
-<!--  Enter description of the message format here.  -->
-<MessageFormat name='NewMessageFormat' version='2.02'>
-    <FieldFormat name='Field1' type='String' delimRef='' delim='\\x00' delimOptional='n' codepage='windows-1252'/>
-    <FieldFormat name='NewField1' type='String' delimRef='' delim='\\x00' delimOptional='n' codepage='windows-1252'/>
-</MessageFormat>
