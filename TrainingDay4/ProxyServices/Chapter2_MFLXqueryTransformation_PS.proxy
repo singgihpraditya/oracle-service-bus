@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config">
+  <ser:coreEntry isProxy="true" isEnabled="true">
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="MFL">
+        <con2:mfl ref="TrainingDay4/Resources/MFLs/TransactionData" xmlns:con2="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:request>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/TrainingDay4/ProxyServices/Chapter2_MFLXqueryTransformation_PS</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router>
+    <con1:pipeline type="request" name="PipelinePairNode1_request">
+      <con1:stage name="PrintInputToConsole">
+        <con1:context/>
+        <con1:actions>
+          <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con4="http://www.bea.com/wli/sb/pipeline/config" xmlns:jms="http://www.bea.com/wli/sb/transports/jms" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+            <con1:id>_ActionId-6414351515969214176-2ff4aa6b.161d12e7373.-7fc6</con1:id>
+            <con2:archive ref="TrainingDay4/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Input Body : ',fn:normalize-space(fn-bea:serialize($body)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="ProcessXQuery">
+        <con1:context/>
+        <con1:actions>
+          <con2:assign varName="inputProcessTransaction">
+            <con3:id>_ActionId-5897354839167135532--73fb4ab6.161d56502d1.-7fe2</con3:id>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="TrainingDay4/Resources/XQuery/TransactionDataToProcessTransaction"/>
+                <con3:param name="transaction1">
+                  <con3:path>$body/Transaction</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+          <con2:javaCallout varName="" xmlns:con3="http://www.bea.com/wli/sb/pipeline/config" xmlns:con4="http://www.bea.com/wli/sb/pipeline/config" xmlns:jms="http://www.bea.com/wli/sb/transports/jms" xmlns:con1="http://www.bea.com/wli/sb/stages/config">
+            <con1:id>_ActionId-5897354839167135532--73fb4ab6.161d56502d1.-7fc4</con1:id>
+            <con2:archive ref="TrainingDay4/Resources/JARs/SimpleLogging"/>
+            <con2:className>id.co.quadras.training.WriteToConsole</con2:className>
+            <con2:method>public static void println(java.lang.String, java.lang.String)</con2:method>
+            <con2:expr>
+              <con1:xqueryText>'DEBUG'</con1:xqueryText>
+            </con2:expr>
+            <con2:expr>
+              <con1:xqueryText>concat('Input Process Transaction : ',fn:normalize-space(fn-bea:serialize($inputProcessTransaction)))</con1:xqueryText>
+            </con2:expr>
+          </con2:javaCallout>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response"/>
+    <con1:flow>
+      <con1:pipeline-node name="PipelinePairNode1">
+        <con1:request>PipelinePairNode1_request</con1:request>
+        <con1:response>PipelinePairNode1_response</con1:response>
+      </con1:pipeline-node>
+      <con1:route-node name="CallSubProcess">
+        <con1:context/>
+        <con1:actions>
+          <con4:route>
+            <con3:id>_ActionId-6161650186382380566--538d773b.161da66e74c.-7f54</con3:id>
+            <con4:service ref="TrainingDay4/ProxyServices/Chapter2_MFLXqueryTransformation_SubProcess_PS" xsi:type="ref:ProxyRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con4:outboundTransform>
+              <con2:replace varName="body" contents-only="true">
+                <con3:id>_ActionId-6161650186382380566--538d773b.161da66e74c.-7f41</con3:id>
+                <con2:expr>
+                  <con3:xqueryText>$inputProcessTransaction</con3:xqueryText>
+                </con2:expr>
+              </con2:replace>
+            </con4:outboundTransform>
+            <con4:responseTransform/>
+          </con4:route>
+        </con1:actions>
+      </con1:route-node>
+    </con1:flow>
+  </ser:router>
+</xml-fragment>

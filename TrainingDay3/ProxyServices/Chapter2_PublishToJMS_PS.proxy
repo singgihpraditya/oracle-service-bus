@@ -25,7 +25,7 @@
     <tran:provider-id>http</tran:provider-id>
     <tran:inbound>true</tran:inbound>
     <tran:URI>
-      <env:value>/TrainingDay3/ProxyServices/Chapter2_XPathManipulation1_PS</env:value>
+      <env:value>/TrainingDay3/ProxyServices/Chapter2_PublishToJMS_PS</env:value>
     </tran:URI>
     <tran:inbound-properties/>
     <tran:all-headers>false</tran:all-headers>
@@ -130,7 +130,7 @@
         </con:actions>
       </con:stage>
     </con:pipeline>
-    <con:pipeline type="response" name="PipelinePairNode1_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"></con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response" xmlns:con="http://www.bea.com/wli/sb/pipeline/config"/>
     <con3:pipeline type="error" name="_onErrorHandler-1083879019689652492--307f7d14.161b677498d.-7eb5">
       <con3:stage name="GlobalErrorHandler">
         <con3:context/>

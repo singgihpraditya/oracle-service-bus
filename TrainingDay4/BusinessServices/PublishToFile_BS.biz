@@ -26,7 +26,7 @@
     </tran:outbound-properties>
     <tran:provider-specific>
       <file:outbound-properties>
-        <file:prefix/>
+        <file:prefix>_OUT</file:prefix>
         <file:suffix/>
       </file:outbound-properties>
       <file:request-encoding>utf-8</file:request-encoding>
