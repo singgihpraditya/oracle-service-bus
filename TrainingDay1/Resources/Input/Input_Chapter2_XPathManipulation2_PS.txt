@@ -1,0 +1,11 @@
+<InputLooping>
+    <!--Zero or more repetitions:-->
+    <Row>
+        <Name>Singgih</Name>
+        <Address>Bogor</Address>
+    </Row>
+    <Row>
+        <Name>Ira</Name>
+        <Address>Jakarta</Address>
+    </Row>
+</InputLooping>

@@ -76,7 +76,7 @@
           <con1:assign varName="selectedAddressFromName" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
             <con3:id xmlns:con3="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7bf1</con3:id>
             <con1:expr>
-              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/InputLooping/Row[name='Singgih']/address/text()</con3:xqueryText>
+              <con3:xqueryText xmlns:con3="http://www.bea.com/wli/sb/stages/config">$body/InputLooping/Row[Name='Singgih']/Address/text()</con3:xqueryText>
             </con1:expr>
           </con1:assign>
           <con1:javaCallout varName="" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config">
@@ -100,7 +100,7 @@
             <con2:id xmlns:con2="http://www.bea.com/wli/sb/stages/config">_ActionId-1083879019689652492--307f7d14.161b677498d.-7c6c</con2:id>
             <con1:variable>body</con1:variable>
             <con1:expression>
-              <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">//InputLoop/Row</con3:xpathText>
+              <con3:xpathText xmlns:con3="http://www.bea.com/wli/sb/stages/config">//InputLooping/Row</con3:xpathText>
             </con1:expression>
             <con1:value-variable>row</con1:value-variable>
             <con1:index-variable>index</con1:index-variable>

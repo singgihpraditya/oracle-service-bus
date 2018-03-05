@@ -1,0 +1,7 @@
+<Person>
+    <FirstName>Singgih</FirstName>
+    <LastName>Praditya</LastName>
+    <City>Bogor</City>
+    <Age>3</Age>
+    <JobDesc>Programmer</JobDesc>
+</Person>

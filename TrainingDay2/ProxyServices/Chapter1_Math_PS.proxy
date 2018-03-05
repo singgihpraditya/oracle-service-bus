@@ -185,7 +185,7 @@
     <con:pipeline type="response" name="PipelinePairNode1_response">
       <con:stage name="ConstructOutput">
         <con:context>
-          <con1:userNsDecl namespace="ttp://esb.quadras.co.id/Math" prefix="math"/>
+          <con1:userNsDecl namespace="http://esb.quadras.co.id/Math" prefix="math"/>
         </con:context>
         <con:actions>
           <con2:javaCallout varName="">

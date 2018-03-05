@@ -4,14 +4,14 @@
 <MessageFormat name='Transaction' version='2.02'>
     <StructFormat name='Header' delimOptional='y'>
         <FieldFormat name='AcctNo' type='String' delimRef='' delim=';' delimOptional='n' codepage='windows-1252'/>
-        <FieldFormat name='AcctNm' type='String' delimRef='' delim='\n' delimOptional='n' codepage='windows-1252'/>
+        <FieldFormat name='AcctNm' type='String' delimRef='' delim=';' delimOptional='n' codepage='windows-1252'/>
         <FieldFormat name='AcctCurrCd' type='String' delimRef='' delim='\n' delimOptional='n' codepage='windows-1252'/>
         <StructFormat name='DetailData' delimOptional='y'>
             <StructFormat name='Detail' delimOptional='y' repeat='*'>
                 <FieldFormat name='FrAcctNo' type='String' delimRef='' delim=';' delimOptional='n' codepage='windows-1252'/>
-                <FieldFormat name='FrAcctNm' type='String' delimRef='' delim='\n' delimOptional='n' codepage='windows-1252'/>
+                <FieldFormat name='FrAcctNm' type='String' delimRef='' delim=';' delimOptional='n' codepage='windows-1252'/>
                 <FieldFormat name='ToAcctNo' type='String' delimRef='' delim=';' delimOptional='n' codepage='windows-1252'/>
-                <FieldFormat name='ToAcctNm' type='String' delimRef='' delim='\n' delimOptional='n' codepage='windows-1252'/>
+                <FieldFormat name='ToAcctNm' type='String' delimRef='' delim=';' delimOptional='n' codepage='windows-1252'/>
                 <FieldFormat name='TxnType' type='String' delimRef='' delim=';' delimOptional='n' codepage='Default'/>
                 <FieldFormat name='TxnDt' type='String' delimRef='' delim=';' delimOptional='n' codepage='Default'/>
                 <FieldFormat name='TxnCurrCd' type='String' delimRef='' delim=';' delimOptional='n' codepage='Default'/>

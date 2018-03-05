@@ -1,0 +1,6 @@
+<InputMath>
+    <FirstNumber>3</FirstNumber>
+    <SecondNumber>3</SecondNumber>
+    <!-- Can be ADD/SUBSTRACT/MULTIPLY/DIVIDE -->
+    <Operation>SUBSTRACT</Operation>
+</InputMath>

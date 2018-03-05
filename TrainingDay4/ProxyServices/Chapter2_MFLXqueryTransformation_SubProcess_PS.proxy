@@ -83,7 +83,7 @@
       <con1:stage name="PublishToFile" errorHandler="_onErrorHandler-3242058300592901891-111bea8b.161ee2500c6.-7d8b">
         <con1:context/>
         <con1:actions>
-          <con2:replace varName="body">
+          <con2:replace varName="body" contents-only="true">
             <con3:id>_ActionId-3242058300592901891-111bea8b.161ee2500c6.-7d86</con3:id>
             <con2:expr>
               <con3:xqueryText>$transactionResult</con3:xqueryText>
