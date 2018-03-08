@@ -17,7 +17,7 @@
     <tran:provider-id>file</tran:provider-id>
     <tran:inbound>false</tran:inbound>
     <tran:URI>
-      <env:value>file:///G:/data/out</env:value>
+      <env:value>file:///G:/data/mfl/out</env:value>
     </tran:URI>
     <tran:outbound-properties>
       <tran:load-balancing-algorithm>round-robin</tran:load-balancing-algorithm>
